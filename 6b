@@ -1,0 +1,89 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+
+
+struct Node{
+        int data;
+        struct Node *next;
+};
+struct Node *top=NULL;
+
+void push(int value)
+{
+    struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
+
+
+    newNode->next=top;
+    top=newNode;
+    newNode->data=value;
+
+    if(top==NULL)
+    {
+        printf("Stack overflow!\n");
+        return;
+    }
+}
+
+void pop()
+{
+    struct Node *temp=NULL;
+
+    temp=top;
+    top=top->next;
+    free(temp);
+
+    printf("Top value has been popped!\n");
+}
+
+void display()
+{
+    if(top==NULL)
+    {
+        printf("Stack is empty\n");
+        return;
+    }
+    else
+    {
+        while(top!=NULL)
+        {
+            printf("%d", top->data);
+            top=top->next;
+        }
+        printf("\n");
+    }
+}
+
+int main()
+{
+    int choice=0;
+    int value=0;
+
+    while(1)
+    {
+        printf("1. Push to stack\n2. Pop\n3. Display\n4. Exit\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+
+        switch(choice)
+        {
+            case 1: printf("Enter value to push: ");
+                    scanf("%d", &value);
+                    push(value);
+                    break;
+
+            case 2: pop();
+
+                    break;
+
+            case 3: printf("Stack values: \n");
+                    display();
+                    break;
+
+            case 4: exit(0);
+
+            default: printf("Invalid Choice!\n");
+    }
+
+    }
+}
